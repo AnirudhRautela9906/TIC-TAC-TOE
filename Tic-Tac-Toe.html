@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --background-color: yellow
+        }
+
+        body {
+            font-family: 'Pacifico', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            background-image: linear-gradient(72deg, #67cb6a, #5db0fe);
+
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            background-color: var(--background-color);
+            border: 1px solid black;
+            cursor: pointer;
+            
+
+        }
+
+        .cross {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .lineD1 {
+            width: 130px;
+            height: 10px;
+            background-color: black;
+            transform: rotate(45deg);
+            translate: 0px 5px;
+        }
+
+        .lineD2 {
+            width: 130px;
+            height: 10px;
+            background-color: black;
+            transform: rotate(-45deg);
+            translate: 0px -5px;
+        }
+
+        .circle {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .outer {
+            background-color: black;
+            height: 110px;
+            width: 110px;
+            border-radius: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner {
+            background-color: var(--background-color);
+            height: 90px;
+            width: 90px;
+            border-radius: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #line1 {
+            width: 95%;
+            height: 20px;
+            background-color: black;
+            position: absolute;
+            border-radius: 20px;
+            display: none;
+            transform: rotate(0deg);
+            translate: 0px 0px;
+
+        }
+
+        #line2 {
+            width: 95%;
+            height: 20px;
+            background-color: black;
+            position: absolute;
+            border-radius: 20px;
+            display: none;
+            transform: rotate(0deg);
+        }
+
+        #line3 {
+            width: 95%;
+            height: 20px;
+            background-color: black;
+            position: absolute;
+            border-radius: 20px;
+            display: none;
+            transform: rotate(0deg);
+
+        }
+
+        #container {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-family: 'Pacifico', cursive;
+            color: black;
+        }
+
+        #text{
+height :140px;
+        }
+        #lets-play{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #Play,#Reset{
+            color: white;
+            background-color: #ff5722;
+            font-family:'Courier New', Courier, monospace;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="lets-play">
+        <h1 >Tic-Tac-Toe</h1>
+        <button id="Play"><strong>Click here to play</strong> </button>
+    </div>
+    <div id="container">
+        <h1 id="text">Tic-Tac-Toe</h1>
+        <div class="row">
+            <div id="line1"></div>
+            <div id="box1" onclick="button(event)" class="box"></div>
+            <div id="box2" onclick="button(event)" class="box"></div>
+            <div id="box3" onclick="button(event)" class="box"></div>
+        </div>
+        <div class="row">
+            <div id="line2"></div>
+            <div id="box4" onclick="button(event)" class="box"></div>
+            <div id="box5" onclick="button(event)" class="box"></div>
+            <div id="box6" onclick="button(event)" class="box"></div>
+        </div>
+        <div class="row">
+            <div id="line3"></div>
+            <div id="box7" onclick="button(event)" class="box"></div>
+            <div id="box8" onclick="button(event)" class="box"></div>
+            <div id="box9" onclick="button(event)" class="box"></div>
+        </div>
+        <button id="Reset">Reset</button>
+    </div>
+
+    <script>
+        let cross = `<div class="cross">
+            <div class="lineD1"></div>
+            <div class="lineD2"></div>
+            </div>`
+        let circle = `<div class="circle">
+                <div class="outer"> 
+                    <div class="inner"></div></div>
+                    </div>`
+
+        let box = document.getElementsByClassName("box")
+        let letsplay = document.getElementById("lets-play")
+        let container = document.getElementById("container")
+        let Play =document.getElementById("Play")
+        let x = 0
+        let gameover =false
+        let music = new Audio("My Audio1.mp3")
+        let player = new Audio("My Audio.mp3")
+        let over = new Audio("Game Over.mp3")
+        Play.addEventListener("click", ()=>{
+            letsplay.style.display= "none"
+            container.style.display= "flex"
+            music.play()
+
+        })
+        let toggle = () => {player.play();
+            if (x % 2 == 1) { return cross }
+            else { return circle }
+        }
+        let Reset = document.getElementById("Reset")
+            let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+            Reset.addEventListener("click",()=>{
+            indexes.forEach(e => {
+                box[e].innerHTML=""
+                line1.style.display = "none"
+                line2.style.display = "none"
+                line3.style.display = "none"
+                line2.style.width = "95%"
+                gameover=false
+                x=0
+                document.getElementById("text").innerHTML="Tic-Tac-Toe"
+        music.play();
+
+            })
+        })
+
+       
+        let result = () => {
+            gameover=true; 
+            over.play()
+            music.pause()
+            if (x % 2 == 1) { return document.getElementById("text").innerHTML="X Won" }
+            else { return document.getElementById("text").innerHTML="O Won" }
+        }
+
+        const button = (event) => {
+            if (event.target.id && gameover==false) {
+                x += 1
+                event.target.innerHTML = toggle();
+                if (box[0].innerHTML === box[1].innerHTML && box[1].innerHTML === box[2].innerHTML
+                    && box[0].innerHTML !== "") {
+                        line1.style.display = "block"
+                        line1.style.transform= "rotate(0deg)"
+                        line1.style.translate = " 0px 0px"
+
+
+                        result()
+                }
+                else if (box[3].innerHTML === box[4].innerHTML && box[4].innerHTML === box[5].innerHTML
+                    && box[3].innerHTML != "") {
+                        line2.style.display = "block"
+                        line2.style.transform= "rotate(0deg)"
+                        line2.style.translate = " 0px 0px"
+
+
+                        result()
+                }
+                else if (box[6].innerHTML === box[7].innerHTML && box[7].innerHTML === box[8].innerHTML
+                    && box[6].innerHTML != "") {
+                        line3.style.display = "block"
+                        line3.style.transform= "rotate(0deg)"
+                        line3.style.translate = " 0px 0px"
+
+                        result()
+                }
+                else if (box[0].innerHTML === box[3].innerHTML && box[3].innerHTML === box[6].innerHTML
+                    && box[0].innerHTML != "") {
+                        line1.style.display = "block"
+                        line1.style.transform = "rotate(90deg)"
+                        line1.style.translate = " -150px 150px"
+                        line1.style.zIndex = "1"
+                        result()
+                }
+                else if (box[1].innerHTML === box[4].innerHTML && box[4].innerHTML === box[7].innerHTML
+                    && box[4].innerHTML !== "") {
+                        line2.style.display = "block"
+                        line2.style.transform = "rotate(90deg)"
+                        line2.style.zIndex = "1"
+                        result()
+                }
+                else if (box[2].innerHTML === box[5].innerHTML && box[5].innerHTML === box[8].innerHTML
+                    && box[5].innerHTML !== "") {
+                        line1.style.display = "block"
+                        line1.style.transform = "rotate(90deg)"
+                        line1.style.translate = " 150px 150px"
+                        line1.style.zIndex = "1"
+                        result()
+                }
+                else if (box[0].innerHTML === box[4].innerHTML && box[8].innerHTML === box[4].innerHTML
+                    && box[0].innerHTML != "") {
+                        line2.style.display = "block"
+                        line2.style.transform = "rotate(45deg)"
+                        line2.style.zIndex = "1"
+                        line2.style.width = "135%"
+                        result()
+                }
+                else if (box[2].innerHTML === box[4].innerHTML && box[6].innerHTML === box[4].innerHTML
+                    && box[4].innerHTML != "") {
+                        line2.style.display = "block"
+                        line2.style.transform = "rotate(-45deg)"
+                        line2.style.zIndex = "1"
+                        line2.style.width = "135%"
+                        result()
+                }
+            }
+        }
+    </script> 
+
+</body>
+
+</html>
