@@ -315,7 +315,7 @@
                     && box[0].innerHTML != "") {
                     line1.style.display = "block"
                     line1.style.transform = "rotate(90deg)"
-                    line1.style.translate = " -150px 150px"
+                    line1.style.translate = window.innerWidth > "600px"? " -150px 150px"  : "-80px 80px"
                     line1.style.zIndex = "1"
                     result()
                 }
@@ -330,7 +330,7 @@
                     && box[5].innerHTML !== "") {
                     line1.style.display = "block"
                     line1.style.transform = "rotate(90deg)"
-                    line1.style.translate = " 150px 150px"
+                    line1.style.translate = window.innerWidth > "600px"? " 150px 150px" : "81px 80px"
                     line1.style.zIndex = "1"
                     result()
                 }
